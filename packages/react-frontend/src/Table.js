@@ -1,4 +1,3 @@
-// src/Table.js
 function TableHeader() {
     return (
       <thead>
