@@ -54,6 +54,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+// get all users
 app.get("/users", (req, res) => {
     const name = req.query.name;
     if (name != undefined) {
@@ -65,6 +66,7 @@ app.get("/users", (req, res) => {
     }
 });
 
+// get a user by id
 app.get("/users/:id", (req, res) => {
     const id = req.params.id;
     let result = findUserById(id);
@@ -75,10 +77,24 @@ app.get("/users/:id", (req, res) => {
     }
 });
 
+// add a user
 app.post("/users", (req, res) => {
     const userToAdd = req.body;
     addUser(userToAdd);
     res.send();
+});
+
+// delete a user by id
+app.delete("/users/:id", (req, res) => {
+    const id = req.params.id;
+    const userToDelete = findUserById(id);
+    if (userToDelete === undefined) {
+        res.status(404).send("Resource not found");
+    } else {
+        const index = users["users_list"].indexOf(userToDelete);
+        users["users_list"].splice(index, 1);
+        res.send();
+    }
 });
 
 app.listen(port, () => {
