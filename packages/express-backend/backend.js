@@ -124,7 +124,7 @@ app.delete("/users/:id", (req, res) => {
     } else {
         // Remove the user from the users_list array
         users["users_list"] = users["users_list"].filter(user => user.id !== id);
-        res.send();
+        res.status(204).send();
     }
 });
 
