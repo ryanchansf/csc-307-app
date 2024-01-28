@@ -112,7 +112,7 @@ app.post("/users", (req, res) => {
   const userToAdd = req.body;
   userToAdd.id = generateRandomId(); // Assign random ID to the new user object
   addUser(userToAdd);
-  res.status(201).send();
+  res.status(201).send(userToAdd);
 });
 
 // delete a user by id
