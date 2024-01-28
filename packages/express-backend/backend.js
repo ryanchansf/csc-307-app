@@ -37,6 +37,10 @@ const users = {
   ],
 };
 
+/**
+ * Helper Functions
+ */
+
 const findUserByName = (name) => {
     return users["users_list"].filter(
         (user) => user["name"] === name
@@ -52,15 +56,28 @@ const addUser = (user) => {
     return user;
 }
 
+const findUserByNameAndJob = (name, job) => {
+  return users["users_list"].filter(
+      (user) => user["name"] === name && user["job"] === job
+  );
+};
+
+const generateRandomId = () => {
+  const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let id = "";
+  for (let i = 0; i < 6; i++) {
+    id += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return id;
+};
+
+/**
+ * Routes
+ */
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-
-const findUserByNameAndJob = (name, job) => {
-    return users["users_list"].filter(
-        (user) => user["name"] === name && user["job"] === job
-    );
-};
 
 // get all users or a user by name or a user by name and job
 app.get("/users", (req, res) => {
@@ -92,9 +109,10 @@ app.get("/users/:id", (req, res) => {
 
 // add a user
 app.post("/users", (req, res) => {
-    const userToAdd = req.body;
-    addUser(userToAdd);
-    res.status(201).send();
+  const userToAdd = req.body;
+  userToAdd.id = generateRandomId(); // Assign random ID to the new user object
+  addUser(userToAdd);
+  res.status(201).send();
 });
 
 // delete a user by id
