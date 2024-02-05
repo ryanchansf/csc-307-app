@@ -6,8 +6,8 @@ function MyApp() {
     const [characters, setCharacters] = useState([]);
 
     function removeCharacter(index) {
-        const id = characters[index].id;
-        deleteUser(id)
+        const _id = characters[index]._id;
+        deleteUser(_id)
             .then(() => {
                 const updated = characters.filter((character, i) => {
                     return i !== index;
@@ -40,8 +40,8 @@ function MyApp() {
         return promise;
     }
 
-    function deleteUser(id) {
-        const promise = fetch(`http://localhost:8000/users/${id}`, {
+    function deleteUser(_id) {
+        const promise = fetch(`http://localhost:8000/users/${_id}`, {
             method: "DELETE",
         });
         return promise;

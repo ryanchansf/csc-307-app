@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import userModel from "./user";
+import userModel from "./user.js";
 
 mongoose.set("debug", true);
 
@@ -48,7 +48,7 @@ function findUserByIdAndDelete(id) {
   return userModel.findByIdAndDelete(id);
 }
 
-export default {
+export {
   addUser,
   getUsers,
   findUserById,
